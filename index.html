@@ -23,9 +23,9 @@ var map = L.mapbox.map('map', 'mapbox.streets')
     .setView([51.2140, 4.421], 14);
 	
 var featureLayer = L.mapbox.featureLayer()
-    .loadURL('/airbnb.geojson')
+    .loadURL('/visitantwerp/airbnb.geojson')
     .addTo(map);
-
+	
 	
 L.control.fullscreen().addTo(map);
 </script>
