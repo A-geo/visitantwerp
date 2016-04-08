@@ -21,13 +21,31 @@
 L.mapbox.accessToken = 'pk.eyJ1Ijoiam9yaXNiIiwiYSI6ImNpbHUxMGtkcjAwNTR1am00NHQydDFhMjMifQ.0WurDht28F5Xw4Bb_LlZlQ';
 var map = L.mapbox.map('map', 'mapbox.streets')
     .setView([51.2140, 4.421], 14);
-	
+
+//add airbnb data
 var featureLayer = L.mapbox.featureLayer()
     .loadURL('/visitantwerp/airbnb.geojson')
     .addTo(map);
 	
-	
+//add fullscreen button to map
 L.control.fullscreen().addTo(map);
+
+// Wait until the markers are loaded, so we know that `map.featureLayer.eachLayer`
+// will actually go over each marker.
+map.featureLayer.on('ready', function(e) {
+    document.getElementById('open-popup').onclick = clickButton;
+});
+
+function clickButton() {
+    map.featureLayer.eachLayer(function(marker) {
+        // You can replace this test for anything else, to choose the right
+        // marker on which to open a popup. by default, popups are exclusive
+        // so opening a new one will close all of the others.
+        if (marker.feature.properties.name === 'Nice appartment with amazing view') {
+            marker.openPopup();
+        }
+    });
+}
 </script>
 </body>
 </html>
